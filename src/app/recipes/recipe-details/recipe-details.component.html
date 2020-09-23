@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-12">
+    <div class="btn-group-sm" role="group">
+      <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        Manage Recipe
+      </button>
+      <div class="dropdown-menu" aria-labelledby="btnGroupDrop1"> <!-- toggle show class to expand/collapse menu -->
+        <a class="dropdown-item" (click)="onAddToShoppingList()">To Shopping List</a>
+        <a class="dropdown-item" (click)="onEditRecipe()">Edit Recipe</a>
+        <a class="dropdown-item" (click)="onDeleteRecipe()">Delete Recipe</a>
+      </div>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-12">
+    <h3>{{ recipeItemDetails.name }}</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <img class="img-fluid rounded img-thumbnail"
+      [src]="recipeItemDetails.imagePath" [alt]="recipeItemDetails.name">
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <h4>Description</h4>
+    <p>{{ recipeItemDetails.description }}</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <h4>Ingredients</h4>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let ingredient of recipeItemDetails.ingredients">
+        {{ingredient.name}}: {{ingredient.amount}} {{ingredient.unit}}
+      </li>
+    </ul>
+  </div>
+</div>

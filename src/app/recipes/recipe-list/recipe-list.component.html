@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-12">
+    <button class="btn btn-success btn-sm" (click)="onNewRecipe()">New Recipe</button> <!-- Can just add [routerLink]="['new']"-->
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-12 list-group">
+      <app-recipe-item
+        *ngFor="let recipe of recipes; let i = index"
+        [recipe]="recipe"
+        [index]="i"></app-recipe-item>
+  </div>
+</div>
