@@ -20,7 +20,7 @@
       </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item" *ngIf="isAuthenticated">
-          <a class="nav-link">Logout</a>
+          <a class="nav-link" (click)="onLogout()">Logout</a>
         </li>
         <li class="nav-item dropdown" *ngIf="isAuthenticated">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

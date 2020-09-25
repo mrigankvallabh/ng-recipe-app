@@ -6,4 +6,8 @@ export class User {
     }
     return this._token;
   }
+
+  get tokenExpirationDateTime(): Date {
+    return this._tokenExpirationDateTime || new Date();
+  }
 }

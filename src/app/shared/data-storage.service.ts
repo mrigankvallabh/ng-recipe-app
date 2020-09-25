@@ -22,21 +22,11 @@ export class DataStorageService {
   }
 
   public fetchRecipes(): Observable<Recipe[]> {
-    return this.authService.user.pipe(
-      take(1),
-      exhaustMap(user => {
-        if(!user) return this.http.get<Recipe[]>('https://ng-recipe-app-8f555.firebaseio.com/recipes.json');
-        return this.http.get<Recipe[]>(
-         'https://ng-recipe-app-8f555.firebaseio.com/recipes.json',
-         {
-           params: new HttpParams().set('auth', user.id)
-         }
-        );
-      }),
+    return this.http.get<Recipe[]>('https://ng-recipe-app-8f555.firebaseio.com/recipes.json').pipe(
       map((recipes: Recipe[]) => {
-        return recipes.map(recipe => {
-          return {...recipe, ingredients: recipe.ingredients ? recipe.ingredients : []}
-        });
+        return recipes.map((recipe: Recipe) => {
+          return {...recipe, ingredients: recipe.ingredients ? recipe.ingredients : []};
+        })
       }),
       tap((recipes: Recipe[]) => {
         this.recipesService.setRecipes(recipes);
