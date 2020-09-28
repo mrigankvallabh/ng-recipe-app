@@ -4,9 +4,11 @@
     <div class="d-flex justify-content-center">
       <div class="spinner-border text-primary text-center" role="status" *ngIf="isLoading"></div> <!-- Bootstrap Spinner -->
     </div>
-    <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+    <!-- <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
       {{ errorMessage }}
-    </div>
+    </div> -->
+    <!-- <app-alert [message]="errorMessage" *ngIf="errorMessage" (closeAlert)="onHandleAlert()"></app-alert> -->
+    <ng-template appPlaceholder></ng-template>
     <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
       <div class="form-group">
         <label for="email">Email address</label>
