@@ -1,36 +1,26 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { RecipesComponent } from './recipes/recipes.component';
-import { ShoppingListComponent } from './shopping-list/shopping-list.component';
-import { RecipeDetailsComponent } from './recipes/recipe-details/recipe-details.component';
-import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
-import { RecipesResolverService } from './recipes/recipes-resolver.service';
-import { AuthComponent } from './auth/auth.component';
-import { AuthGuardService } from './auth/auth-guard.service';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/recipes', pathMatch: 'full' },
+  // { path: 'recipes', loadChildren: './recipes/recipes.module#RecipesModule' },
   {
     path: 'recipes',
-    component: RecipesComponent,
-    canActivate: [AuthGuardService],
-    // Order of definition of children matters!
-    children: [
-      { path: '', component: RecipeDetailsComponent, resolve: [RecipesResolverService] },
-      { path: 'edit', redirectTo: '-1/edit' },
-      { path: 'new', component: RecipeEditComponent },
-      { path: ':id', component: RecipeDetailsComponent, resolve: [RecipesResolverService] },
-      { path: ':id/edit', component: RecipeEditComponent, resolve: [RecipesResolverService] },
-      { path: '**', redirectTo: '/recipes' }
-    ]
+    loadChildren: () => import('./recipes/recipes.module').then(m => m.RecipesModule)
   },
-  { path: 'shopping-list', component: ShoppingListComponent },
-  { path: 'auth', component: AuthComponent},
+  {
+    path: 'shopping-list',
+    loadChildren: () => import('./shopping-list/shopping-list.module').then(m => m.ShoppintListModule)
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+  },
   { path: '**', redirectTo: '/recipes'}
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(appRoutes) ],
+  imports: [ RouterModule.forRoot(appRoutes, {preloadingStrategy: PreloadAllModules}) ],
   exports: [ RouterModule ]
 })
 
